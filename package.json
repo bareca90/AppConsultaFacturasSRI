@@ -1,0 +1,19 @@
+{
+  "name": "appconsultafacturassri",
+  "version": "1.0.0",
+  "description": "Sistema de Consulta de documentos electronicos generados",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bairon Reyes",
+  "license": "ISC",
+  "dependencies": {
+    "fast-xml-parser": "^4.2.7",
+    "msnodesqlv8": "^4.1.0",
+    "mssql": "^9.1.3",
+    "node-cron": "^3.0.2",
+    "soap": "^1.0.0",
+    "winston": "^3.10.0"
+  }
+}
