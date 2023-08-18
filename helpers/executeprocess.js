@@ -9,11 +9,13 @@ const processRecords = async () =>  {
         /**
          * Aqui se va  a obtener los datos de la cuenta registrada del sri
          */
-        let query      =    'SP_Consulta_Claves_Acceso';
-        let parametro  =    'DAI';
+        let     query               =   'SP_Consulta_Claves_Acceso';
+        let     parametro           =   'DAI';
         const   datoscredenciales   =   await consultarDatos(parametro,query);
+        let     codmsg              =   datoscredenciales[0].codmsg;
+        let     ruc                 =   datoscredenciales[0].ruc;
+        let     password            =   datoscredenciales[0].password;
         
-        console.log('Datos Credenciales',datoscredenciales);
     }catch(error){
         console.error('Error al procesar los registros:', error);
     }
