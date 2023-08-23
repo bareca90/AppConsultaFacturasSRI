@@ -1,6 +1,5 @@
 ## Sistema de descarga de documentos electronicos
 ## Paso para poder iniciar el proyecto
-###
 -----------------------------
 --Git
 -----------------------------
@@ -23,4 +22,3 @@ npm i node-cron
 npm i winston
 npm install soap
 npm i fast-xml-parser
-###
