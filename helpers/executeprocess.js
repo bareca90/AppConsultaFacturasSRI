@@ -18,6 +18,9 @@ const processRecords = async () =>  {
         let     codmsg              =   datoscredenciales[0].codmsg;
         let     ruc                 =   datoscredenciales[0].ruc;
         let     password            =   datoscredenciales[0].password;
+        let     pathdestino         =   datoscredenciales[0].url;
+        
+        
         /* 
         *   Aqui se procedera a obtener los datos de las claves de acceso cargadas en el sistema
         */
@@ -25,9 +28,11 @@ const processRecords = async () =>  {
             parametro                   =   'DCA'   //Datos de Clave de Acceso
             const   datosclavesaccesos  =   await consultarDatos(parametro,query);
             /* 
-            *   Este dato que recibimos hay que procesarlo y para esto lo pasamos a las funciones 
+            *   Este dato que recibimos hay que procesarlo y para esto lo pasamos a las funciones , aqui se recibiran los xmls obtenidos
             */
-            const   datosreadjson       =   await readjsonbd(ruc,password,datosclavesaccesos);   
+            const   datosreadjson       =   await readjsonbd(ruc,password,pathdestino,datosclavesaccesos);   
+            console.log(datosreadjson);
+
             //console.log(datosreadjson);
         }else{
             msg = {'codmsg':400,'typemessage':'Error' ,'descriptionmessage':'No se encontro datos de ruc ni clave'};
