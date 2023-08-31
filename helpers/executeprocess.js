@@ -1,5 +1,7 @@
-const {consultarDatos} =    require('../database/callstoreprocedure');
-const {readjsonbd}     =    require('../functions/fninvoquedata');
+const   {consultarDatos} =    require('../database/callstoreprocedure');
+const   {   readjsonbd      ,
+            convertxmltopdf
+        }               =    require('../functions/fninvoquedata');
 /*
 ------------------------------
 Permtiira que se Ejecuten los procesos(Recorrido de datos y generacion de cada pdf)
@@ -31,7 +33,11 @@ const processRecords = async () =>  {
             *   Este dato que recibimos hay que procesarlo y para esto lo pasamos a las funciones , aqui se recibiran los xmls obtenidos
             */
             const   datosreadjson       =   await readjsonbd(ruc,password,pathdestino,datosclavesaccesos);   
-            console.log(datosreadjson);
+            /*
+            *   Luego de Obtener los datos se procede a generar los diferentes archivos pdf y guardarlos en la ruta
+            */
+            const   datospdfgenerados   =   await convertxmltopdf(datosreadjson);
+            //console.log(datosreadjson);
 
             //console.log(datosreadjson);
         }else{

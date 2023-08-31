@@ -25,17 +25,14 @@ const url               =   'https://cel.sri.gob.ec/comprobantes-electronicos-ws
 //const clave             =   'BARECA0608'; // reemplazar con la clave de acceso correspondiente
 const outputPath        =   path.join("\\\\10.100.120.19\\Erpdocumentos\\pdfdocssri", "factura.pdf");
 
-
 /* 
 *   Función que llevara toda la logica de recorrido y obtencion de los xml desde el sri
 */
-const  readjsonbd   =   async(ruc,password,pathdestino,datosjson)    =>  {
-    let cantidad    =   10;
-    let datosxmlsri =   [];
-    let   cabecera  =   [] ;
-    let   detallefactura=[]  ;    
-    //let   cabecera=[] ;
-    //let   detallefactura=[]  ;    
+const  readjsonbd       =   async(ruc,password,pathdestino,datosjson)    =>  {
+    let cantidad        =   10;
+    let cabecera        =   [];
+    let detallefactura  =   [];    
+    let datosxmlsri     =   [];
     /* 
     *   Leo los datos que son enviados en el json para desestructurarlo
     */
@@ -45,75 +42,73 @@ const  readjsonbd   =   async(ruc,password,pathdestino,datosjson)    =>  {
         const requestArgs = {
             claveAccesoComprobante: claveacceso.claveAcceso,
         };
-        soap.createClient(url, (err, client) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-          
-            // Agregar las credenciales a los encabezados SOAP
-            client.addSoapHeader({
-              'tns:ClaveAcceso': password,
-              'tns:Ruc': ruc,
-            }, '', 'tns', 'http://www.w3.org/2000/09/xmldsig#');
-            console.log(ruc);
-            console.log(password);
-            // Llamar al método 'autorizacionComprobante' del Web Service
-            client.autorizacionComprobante(requestArgs, (err, result) => {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
-                const xmlResponse = result.RespuestaAutorizacionComprobante.autorizaciones.autorizacion.comprobante; // obtener la respuesta como una cadena XML
-                /**
-                 *  Convertir la respuesta XML a un objeto JavaScript
-                 */
+        try{
+            //Creamos el cliente tipo soap
+            const client = await new Promise((resolve, reject) => {
+                soap.createClient(url, (err, client) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(client);
+                    }
+                });
+            });
+            //Añadimos los datos de Headers
+            client.addSoapHeader(
+                {
+                    'tns:ClaveAcceso': password,
+                    'tns:Ruc': ruc,
+                },
+                '',
+                'tns',
+                'http://www.w3.org/2000/09/xmldsig#'
+            );
+            //Creamos la promesa para el endpoint autorizacion comprobantes
+            const result = await new Promise((resolve, reject) => {
+                client.autorizacionComprobante(requestArgs, (err, result) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            });
+            //Verificamos que exista el objeto autorizaciones
+            //let jsResponse;
+            
+            //console.log('Antes >>>>',result);
+            if (result && result.RespuestaAutorizacionComprobante && result.RespuestaAutorizacionComprobante.autorizaciones && result.RespuestaAutorizacionComprobante.autorizaciones.autorizacion){
+                const xmlResponse =  result.RespuestaAutorizacionComprobante.autorizaciones !== null ? result.RespuestaAutorizacionComprobante.autorizaciones.autorizacion.comprobante : '';
                 const options = {
                     attributeNamePrefix: '',
                     ignoreAttributes: false,
                 };
                 const jsResponse = parser.parse(xmlResponse, options);
-                /**
-                 * Recorrer el XML completo y almacenar los valores en variables
-                 */
-                const factura           =   jsResponse['factura'];
-                const infoTributaria    =   factura['infoTributaria'];
-                const razonSocial       =   infoTributaria['razonSocial'];
-                const nombreComercial   =   infoTributaria['nombreComercial'];
-                const rucEmisor         =   infoTributaria['ruc'];
-                const infoFactura       =   factura['infoFactura'];
-                const total             =   infoFactura['total'];
-                /** 
-                 * Almacenar los datos de la cabcera como : razon Social, total , etc
-                */
-                // Datos de la cabecera de la factura simulados
-                cabecera = {
-                    invoiceNumber   : ruc               ,
-                    date            : nombreComercial   ,
-                    customerName    : nombreComercial   ,
-                };
+                const valoresxml = { claveacceso: claveacceso.claveAcceso, xml: jsResponse, pathdestino: pathdestino };
+                datosxmlsri.push(valoresxml);  
+               
+                //console.log(datosxmlsri);
                 
-                //console.log(`Razón social: ${razonSocial}, Nombre comercial: ${nombreComercial}, RUC emisor: ${rucEmisor}`);
-                //console.log(`Total: ${total}`);
                 
-                console.log('Datos xml >>> ',jsResponse);
-                 // Recorrer cada detalle y mostrarlo en la consola
-                /* const detalles = jsResponse['factura']['detalles']['detalle'];
-                detalles.forEach((detalle, index) => {
-                    const codigoPrincipal   = detalle['codigoPrincipal'];
-                    const descripcion       = detalle['descripcion'];
-                    const cantidad          = detalle['cantidad'];
-                    const precioUnitario    = detalle['precioUnitario'];
-                    const detallesd         = { item: codigoPrincipal, quantity: cantidad, price: precioUnitario };
-                    
-                    detallefactura.push(detallesd);
-                });
-                console.log(detallefactura); */
     
-                //generateInvoicePDF(cabecera,detallefactura);
-                
-            });
-        });
+                //console.log('Despues de >>>>',jsResponse);
+
+            }else{
+                console.log(`La clave de acceso >>> ${claveacceso.claveAcceso} >>> no arroja datos `);
+            }
+            
+
+
+
+        }catch(error){
+            console.log(error);
+        }
+
+        
+        
+        //datos desde 
+
+        //hasta
 
 
        // console.log(requestArgs);
@@ -131,9 +126,80 @@ const  readjsonbd   =   async(ruc,password,pathdestino,datosjson)    =>  {
         cantidad++;
     }
 
-    return cantidad;
+    return datosxmlsri;
+}
+const convertxmltopdf = async(datosxml)=>{
+    for(const datoxml of datosxml){
+        const xml  =    datoxml.xml;
+        /** 
+         * Se Valida si el documento es factura
+        */
+        if (jsResponse['factura']){
+            /**
+            * Recorrer el XML completo y almacenar los valores en variables
+            */
+            /*
+            const factura                       =   jsResponse['factura'];
+            const infoTributaria                =   factura['infoTributaria'];
+            const ambiente                      =   infoTributaria['ambiente'];
+            const tipoEmision                   =   infoTributaria['tipoEmision'];
+            const ruc                           =   infoTributaria['ruc'];    
+            const claveAcceso                   =   infoTributaria['claveAcceso'];    
+            const codDoc                        =   infoTributaria['codDoc'];    
+            const estab                         =   infoTributaria['estab'];    
+            const ptoEmi                        =   infoTributaria['ptoEmi'];    
+            const secuencial                    =   infoTributaria['secuencial'];    
+            const dirMatriz                     =   infoTributaria['dirMatriz'];    
+            const agenteRetencion               =   infoTributaria['agenteRetencion'];        
+            const infoFactura                   =   factura['infoFactura'];
+            const fechaEmision                  =   infoFactura['fechaEmision'];
+            const obligadoContabilidad          =   infoFactura['obligadoContabilidad'];
+            const tipoIdentificacionComprador   =   infoFactura['tipoIdentificacionComprador'];
+            const razonSocialComprador          =   infoFactura['razonSocialComprador'];
+            const identificacionComprador       =   infoFactura['identificacionComprador'];
+            const totalSinImpuestos             =   infoFactura['totalSinImpuestos'];
+            const totalDescuento                =   infoFactura['totalDescuento'];
+            
+            
+            const razonSocial                   =   infoTributaria['razonSocial'];
+            const nombreComercial               =   infoTributaria['nombreComercial'];
+            const rucEmisor                     =   infoTributaria['ruc'];
+            */
+            /** 
+             * Almacenar los datos de la cabcera como : razon Social, total , etc
+            */
+            // Datos de la cabecera de la factura simulados
+            /*
+            cabecera = {
+                invoiceNumber   : ruc               ,
+                date            : nombreComercial   ,
+                customerName    : nombreComercial   ,
+            };
+            */
+            //console.log(`Razón social: ${razonSocial}, Nombre comercial: ${nombreComercial}, RUC emisor: ${rucEmisor}`);
+            //console.log(`Total: ${total}`);
+            
+            //console.log('Datos xml >>> ',cabecera);
+            // Recorrer cada detalle y mostrarlo en la consola
+            /* const detalles = jsResponse['factura']['detalles']['detalle'];
+            detalles.forEach((detalle, index) => {
+                const codigoPrincipal   = detalle['codigoPrincipal'];
+                const descripcion       = detalle['descripcion'];
+                const cantidad          = detalle['cantidad'];
+                const precioUnitario    = detalle['precioUnitario'];
+                const detallesd         = { item: codigoPrincipal, quantity: cantidad, price: precioUnitario };
+                
+                detallefactura.push(detallesd);
+            });
+            console.log(detallefactura); */
+
+            //generateInvoicePDF(cabecera,detallefactura);
+        }
+        //console.log('Datos xml >>> ',datoxml.xml);
+    }
 }
 
 module.exports={
-    readjsonbd
+    readjsonbd,
+    convertxmltopdf
 }
