@@ -134,7 +134,7 @@ const convertxmltopdf = async(datosxml)=>{
         /** 
          * Se Valida si el documento es factura
         */
-        if (jsResponse['factura']){
+        if (datoxml['factura']){
             /**
             * Recorrer el XML completo y almacenar los valores en variables
             */
