@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura</title>
+    <style>
+        /* Estilos CSS para la factura */
+        /* ... */
+        .barcode {
+            font-family:'Code39AzaleaRegular1'; /* Usa el tipo de letra "Barcode" o similar */
+            font-size: 73px; /* Ajusta el tamaño de fuente según tus necesidades */
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice">
+        <div class="header">
+            <h1>Factura</h1>
+            <p>Fecha: {{fecha}}</p>
+            <p>Cliente: {{cliente}}</p>
+        </div>
+        <div class="details">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each detalles}}
+                    <tr>
+                        <td>{{this.producto}}</td>
+                        <td>{{this.cantidad}}</td>
+                        <td>{{this.precio}}</td>
+                        <td>{{this.total}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div class="footer">
+            <p>Total: {{totalGeneral}}</p>
+        </div>
+        <div class="barcode">
+            <!-- Representación del código de barras -->
+            {{numeroFactura}} <!-- Aquí puedes usar el valor que deseas representar -->
+        </div>
+    </div>
+</body>
+</html>

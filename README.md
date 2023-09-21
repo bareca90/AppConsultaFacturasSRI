@@ -24,3 +24,4 @@
 ##  npm i fast-xml-parser
 ##  npm i pdf-lib
 ##  npm install pdf-lib bwip-js
+##  npm install puppeteer handlebars
