@@ -30,7 +30,7 @@
         <td rowspan="2" class="BordesTablas">
             <table border="0" height="100%" width="100%">
                 <tr>
-                    <td colspan="2"><h1 align="center">XR.U.C:</h1></td>
+                    <td colspan="2"><h1 align="center">R.U.C: {{ruc}}</h1></td>
                 </tr>
                 <tr>
                     <td colspan="2"><h1 class="Descripcion1" align="center">FACTURA</h1></td>
@@ -40,7 +40,7 @@
                         &nbsp;&nbsp;<span class="Descripcion1">No:</span>
                     </td>
                     <td>
-                        <span id="estab">Xestab</span>-<span id="ptoEmi">XptoEmi</span>- <span id="secuencial">Xsecuencial</span> &emsp;
+                        <span id="estab">{{estab}}</span>-<span id="ptoEmi">{{ptoEmi}}</span>- <span id="secuencial">{{secuencial}}</span> &emsp;
                     </td>
                 </tr>
                 <tr>
@@ -48,7 +48,7 @@
                         &nbsp;&nbsp;<span class="Descripcion1">Numero de <br>&nbsp;&nbsp;Autorizacion:</span>
                     </td>
                     <td>
-                        <span id="autorizacionoffline">Xautorizacionoffline</span>
+                        <span id="autorizacionoffline">{{claveAcceso}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -56,7 +56,7 @@
                         &nbsp;&nbsp;<span class="Descripcion1">Fecha  de <br>&nbsp;&nbsp;Autorizacion:</span>
                     </td>
                     <td>
-                        <span id="fechaEmision">XYZfechaEmision</span>
+                        <span id="fechaEmision">{{fechaEmision}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -64,7 +64,7 @@
                         &nbsp;&nbsp;<span class="Descripcion1">Ambiente:</span>
                     </td>
                     <td>
-                        <span id="ambiente">Xambiente</span>
+                        <span id="ambiente">{{ambiente}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -72,7 +72,7 @@
                         &nbsp;&nbsp;<span class="Descripcion1">Emision:</span>
                     </td>
                     <td>
-                        <span id="emision">Xemision</span>
+                        <span id="emision">{{tipoEmision}}</span>
                     </td>
                 </tr>
 
@@ -81,14 +81,14 @@
                         <center>
 
                             <span class="Descripcion1">Clave de Acceso</span>
-                            <span id="claveAcceso" style="font-family:'Code39AzaleaRegular1';  font-size:73px;"><br>XclaveAcceso</span>
+                            <span id="claveAcceso" style="font-family:'Code39AzaleaRegular1';  font-size:73px;"><br>{{claveAcceso}}</span>
                         </center>
                     </td>
                 </tr>
 
                 <tr>
                     <td colspan="2" align="center">
-                        <span id="claveAccesop">XclaveAcceso</span>
+                        <span id="claveAccesop">{{claveAcceso}}</span>
                     </td>
                 </tr>
             </table>
@@ -100,7 +100,7 @@
 
                 <tr>
                     <td colspan="2">
-                        <h2 align="center" class="Descripcion1" id="razonSocial">XrazonSocial </h2>
+                        <h2 align="center" class="Descripcion1" id="razonSocial">{{razonSocial}} </h2>
                     </td>
                 </tr>
 
@@ -110,7 +110,7 @@
 
                     </td>
                     <td>
-                        <span id="dirMatriz">XdirMatriz</span><br>
+                        <span id="dirMatriz">{{dirMatriz}}</span><br>
                     </td>
                 </tr>
                 <tr>
@@ -118,7 +118,7 @@
                         &nbsp;&nbsp;<span class="Descripcion1">Direccion Sucursal: </span>
                     </td>
                     <td>
-                        <span id="dirEstablecimiento">XYZdirEstablecimiento</span>
+                        <span id="dirEstablecimiento">{{dirMatriz}}</span>
                     </td>
                 </tr>
 
@@ -127,7 +127,7 @@
                         &nbsp;&nbsp;<span class="Descripcion1">Contribuyente Esp. No:</span>
                     </td>
                     <td>
-                        <span id="obligadoContabilidad">XYZcontribuyenteEspecial</span>
+                        <span id="obligadoContabilidad">{{obligadoContabilidad}}</span>
                     </td>
                 </tr>
 
@@ -136,13 +136,13 @@
                         &nbsp;&nbsp;<span class="Descripcion1">Obligado a llevar<br>&nbsp;&nbsp;contabilidad:</span>
                     </td>
                     <td>
-                        <span id="obligadoContabilidad">XYZobligadoContabilidad</span>
+                        <span id="obligadoContabilidad">{{obligadoContabilidad}}</span>
                     </td>
                 </tr>
 
                 <tr>
                     <td colspan="2" align="center">
-                        <br>&nbsp;&nbsp;<span class="Descripcion1">XYZEXPORTADORHABITUALDEBIENES</span>
+                        <br>&nbsp;&nbsp;<span class="Descripcion1">{{obligadoContabilidad}}</span>
                     </td>
                 </tr>
             </table>
@@ -159,14 +159,14 @@
                     </td>
 
                     <td>
-                        <span id="razonSocialProveedor">XYZrazonSocialComprador</span>
+                        <span id="razonSocialProveedor">{{razonSocialComprador}}</span>
                     </td>
                     <td>
                         &nbsp;&nbsp; <span class="Descripcion1">Identificacion:</span>
                     </td>
 
                     <td>
-                        <span id="razonSocialProveedor">XYZidentificacionComprador</span>
+                        <span id="razonSocialProveedor">{{identificacionComprador}}</span>
                     </td>
                 </tr>
 
@@ -176,14 +176,14 @@
                     </td>
 
                     <td>
-                        <span id="razonSocialProveedor">XYZfechaEmision</span>
+                        <span id="razonSocialProveedor">{{fechaEmision}}</span>
                     </td>
                     <td>
                         &nbsp;&nbsp;<span class="Descripcion1">Guia de Remision:</span>
                     </td>
 
                     <td>
-                        <span id="razonSocialProveedor">XYZguiaRemision</span>
+                        <span id="razonSocialProveedor">{{secuencial}}</span>
                     </td>
                 </tr>
 
@@ -193,7 +193,7 @@
                     </td>
 
                     <td>
-                        <span id="razonSocialProveedor">XYZdireccionComprador</span>
+                        <span id="razonSocialProveedor">{{dirMatriz}}</span>
                     </td>
                 </tr>
             </table>
@@ -208,16 +208,39 @@
 </table>
 
 
-
-<table>
+<table align='center' border='1' width='1159' cellspacing='0' class="BordesTablasDetalle">
+    <thead >
+        <tr>
+            <th>Cód. Item</th>
+            <th>Cantidad</th>
+            <th>Descripcion</th>
+            <th>Precio Unitario</th>
+            <th>Descuento</th>
+            <th width="115">Total Item</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each detalles}}
+        <tr>
+            <td align="center">{{this.item}}</td>
+            <td align="center">{{this.quantity}}</td>
+            <td align="left">{{this.description}}</td>
+            <td align="right">{{this.price}}</td>
+            <td align="right">{{this.desc}}</td>
+            <td align="right">{{this.totalitem}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<!-- <table>
     <tr>
         <td>
             <br>
-            <table id="tabledetalle"></table>
+            
             <br>
         </td>
     </tr>
-</table>
+</table> -->
 
 
 
@@ -235,7 +258,7 @@
                         <span class="Descripcion1">SUBTOTAL 12%</span>
                     </td>
                     <td align="right" style="width:115px;">
-                        <span id="SUBTOTAL12P">XSUBTOTAL12P</span>
+                        <span id="SUBTOTAL12P">{{baseImponible}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -243,7 +266,7 @@
                         <span class="Descripcion1">SUBTOTAL 0%</span>
                     </td>
                     <td align="right">
-                        <span id="SUBTOTAL0P">XSUBTOTAL0P</span>
+                        <span id="SUBTOTAL0P">{{baseImponible}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -251,7 +274,7 @@
                         <span class="Descripcion1">SUBTOTAL NO OBJETO DE IVA </span>
                     </td>
                     <td align="right">
-                        <span id="SUBTOTALNOOBJETODEIVA">XSUBTOTALNOOBJETODEIVA</span>
+                        <span id="SUBTOTALNOOBJETODEIVA">{{baseImponible}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -259,7 +282,7 @@
                         <span class="Descripcion1">SUBTOTAL EXENTO DE IVA</span>
                     </td>
                     <td align="right">
-                        <span id="SUBTOTALEXENTODEIVA">XSUBTOTALEXENTODEIVA</span>
+                        <span id="SUBTOTALEXENTODEIVA">{{baseImponible}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -267,7 +290,7 @@
                         <span class="Descripcion1">SUBTOTAL SIN IMPUESTOS</span>
                     </td>
                     <td align="right">
-                        <span id="SUBTOTALSINIMPUESTOS">XYZSUBTOTALSINIMPUESTOS</span>
+                        <span id="SUBTOTALSINIMPUESTOS">{{baseImponible}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -275,7 +298,7 @@
                         <span class="Descripcion1">TOTAL DESCUENTO</span>
                     </td>
                     <td align="right">
-                        <span id="TOTALDESCUENTO">XYZTOTALDESCUENTO</span>
+                        <span id="TOTALDESCUENTO">{{totalDescuento}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -283,7 +306,7 @@
                         <span class="Descripcion1">ICE</span>
                     </td>
                     <td align="right">
-                        <span id="ICE">XICE</span>
+                        <span id="ICE">{{totalSinImpuestos}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -291,7 +314,7 @@
                         <span class="Descripcion1">IVA 12%</span>
                     </td>
                     <td align="right">
-                        <span id="IVA12P">XIVA12P</span>
+                        <span id="IVA12P">{{valor}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -299,7 +322,7 @@
                         <span class="Descripcion1">IRBPNR</span>
                     </td>
                     <td align="right">
-                        <span id="IRBPNR">XIRBPNR</span>
+                        <span id="IRBPNR">{{valor}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -307,7 +330,7 @@
                         <span class="Descripcion1">VALOR TOTAL</span>
                     </td>
                     <td align="right">
-                        <span id="VALORTOTAL">XVALORTOTAL</span>
+                        <span id="VALORTOTAL">{{importeTotal}}</span>
                     </td>
                 </tr>
 
@@ -319,8 +342,27 @@
 
     <tr>
         <td>
-            <table id="tableinfoadicional"></table>
-
+            <table align='left' border='0' width='95%' cellspacing='12' class="BordesTablas">
+                <thead>
+                    <tr>
+                        <th>Forma de Pago</th>
+                        <th>Valor</th>
+                        <th>Plazo</th>
+                        <th>Tiempo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td align="center">{{formaPago}}</td>
+                        <td align="right">{{total}}</td>
+                        <td align="right">{{plazo}}</td>
+                        <td align="right">{{unidadTiempo}}</td>
+                        
+                    </tr>
+                    
+                </tbody>
+            </table>
+            
         </td>
 
     </tr>

@@ -25,3 +25,4 @@
 ##  npm i pdf-lib
 ##  npm install pdf-lib bwip-js
 ##  npm install puppeteer handlebars
+##  npm install xml2js
