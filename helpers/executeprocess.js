@@ -1,6 +1,7 @@
 const   {consultarDatos} =    require('../database/callstoreprocedure');
 const   {   readjsonbd      ,
-            convertxmltopdf
+            convertxmltopdf ,
+            generaFacturaPdf
         }               =    require('../functions/fninvoquedata');
 /*
 ------------------------------
@@ -36,7 +37,9 @@ const processRecords = async () =>  {
             /*
             *   Luego de Obtener los datos se procede a generar los diferentes archivos pdf y guardarlos en la ruta
             */
-            const   datospdfgenerados   =   await convertxmltopdf(datosreadjson);
+            const   datospdfgenerados   =   await convertxmltopdf(datosreadjson,pathdestino);
+            //console.log('Generar Pdfs',datospdfgenerados);
+            const   pdfgenerados        =   await generaFacturaPdf(datospdfgenerados,pathdestino);
             //console.log(datosreadjson);
 
             //console.log(datosreadjson);
