@@ -2,7 +2,9 @@
 /* 
 *   Especificacion de Importaciones Necesarias
 */
-const {consultarDatos}  =   require('../database/callstoreprocedure');
+const   {   consultarDatos,
+            actualizarutaspdf
+        }   =   require('../database/callstoreprocedure');
 //const fs                =   require('fs').promises;
 const fs                =   require('fs');
 const { Console }       =   require('console');
@@ -376,15 +378,13 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                                
             };
             documentosmap.push(datosfactura);
-            //const pdfgenerado   =   await generaFacturaPdf(datosfactura,rutadestino,nombre);
-            
-
         }
         //console.log('Datos xml >>> ',datoxml.xml);
     }
     return documentosmap;
 }
-const generaFacturaPdf    =   async(invoiceDatos,pathdestino,nombre) =>  {
+const generaFacturaPdf      =   async(invoiceDatos,pathdestino,nombre) =>  {
+    let archivosgenerados   =   [];
 
     for(const invoiceData of invoiceDatos){
        // console.log('Datos Factura ',invoiceData);
@@ -407,12 +407,23 @@ const generaFacturaPdf    =   async(invoiceDatos,pathdestino,nombre) =>  {
         // Cerrar el navegador
         await browser.close();
 
+        archivosgenerados.push({claveacceso:invoiceData.claveAcceso,rutaarchivo : outputPath});
         console.log('PDF de factura generado.');
     }
-    
+    return archivosgenerados;
+}
+const actualizarutaspdfbd   =   async(parametro,query,rutaspdf)=>{
+    for(const rutapdf of rutaspdf){
+        const claveacceso       =   rutapdf.claveacceso;
+        const rutapdfguardado   =   rutapdf.rutaarchivo;
+        const datosactualizados =   await actualizarutaspdf(query,parametro,claveacceso,rutapdfguardado);
+
+        
+    }
+    return true;
 }
 function devolverFormaPago (codformapago){
-    let descformapago   =   'OTROS CON UTILIZACIÓN DEL SISTEMA FINANCIERO' ;
+    let descformapago       =   'OTROS CON UTILIZACIÓN DEL SISTEMA FINANCIERO' ;
     switch (codformapago){
         case '01':
             descformapago   =   'SIN UTILIZACION DEL SISTEMA FINANCIERO'
@@ -444,5 +455,6 @@ function devolverFormaPago (codformapago){
 module.exports={
     readjsonbd,
     convertxmltopdf,
-    generaFacturaPdf
+    generaFacturaPdf,
+    actualizarutaspdfbd
 }

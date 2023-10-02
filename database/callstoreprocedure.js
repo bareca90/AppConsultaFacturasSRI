@@ -17,8 +17,28 @@ const consultarDatos = async(opcion,query) => {
         console.log(error);
     }
 };
-
+/*
+------------------------
+Actualizar estado de Pdf Generado y de Ruta  guardada
+------------------------
+*/
+let actualizarutaspdf = async(query,opcion,claveacceso,valor) => {
+    try {
+        let pool = await sql.connect(config);
+        let datospdfact = await pool.request()
+            .input('opcion', sql.Char, opcion)
+            .input('claveacceso', sql.Char, claveacceso)
+            .input('valor', sql.Char, valor)
+            .execute(query);
+        /* console.log(clientes); */
+        return datospdfact.recordsets;
+        /* return clientes; */
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 module.exports={
-    consultarDatos
+    consultarDatos,
+    actualizarutaspdf
 }
