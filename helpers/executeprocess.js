@@ -13,6 +13,15 @@ const processRecords = async () =>  {
     let msg         =   ''; 
     let parametro   =   '';
     try{
+        let fecha_actual                =   new Date();
+        let anio                        =   fecha_actual.getFullYear();
+        let mes                         =   fecha_actual.getMonth()+1;
+        let dia                         =   fecha_actual.getDate();
+        let hora                        =   fecha_actual.getHours();
+        let minutos                     =   fecha_actual.getMinutes();
+        let segundos                    =   fecha_actual.getMilliseconds();
+        let datosFecha                  =   anio.toString()+'-'+mes.toString().padStart(2,'0')+'-'+dia.toString().padStart(2,'0')+'-'+hora.toString().padStart(2,'0')+':'+minutos.toString().padStart(2,'0')+':'+segundos.toString().padStart(2,'0');
+        console.log('Ejecucion Iniciada........... ',datosFecha);
         /*
          * Aqui se va  a obtener los datos de la cuenta registrada del sri
         */

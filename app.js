@@ -26,10 +26,10 @@ const main = async () => {
         //Ejecución de el Cron de Consulta
         //--------------------------------------------
         try {
-            const msg   = await processRecords();
+            //const msg   = await processRecords();
             //console.log('Ingreso por el dato correcto');
-            //cron.schedule('* * * * *', processRecords);
-            console.log(msg);
+            cron.schedule('* * * * *', processRecords);
+            //console.log(msg);
         } catch (error) {
             console.error('Error al Ejecutar Procesos:', error);
         }
