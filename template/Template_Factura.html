@@ -118,7 +118,7 @@
                         &nbsp;&nbsp;<span class="Descripcion1">Direccion Sucursal: </span>
                     </td>
                     <td>
-                        <span id="dirEstablecimiento">{{dirMatriz}}</span>
+                        <span id="dirEstablecimiento">{{dirEstablecimiento}}</span>
                     </td>
                 </tr>
 
@@ -127,7 +127,7 @@
                         &nbsp;&nbsp;<span class="Descripcion1">Contribuyente Esp. No:</span>
                     </td>
                     <td>
-                        <span id="obligadoContabilidad">{{obligadoContabilidad}}</span>
+                        <span id="obligadoContabilidad">{{contribuyenteEspecial}}</span>
                     </td>
                 </tr>
 
@@ -136,13 +136,14 @@
                         &nbsp;&nbsp;<span class="Descripcion1">Obligado a llevar<br>&nbsp;&nbsp;contabilidad:</span>
                     </td>
                     <td>
-                        <span id="obligadoContabilidad">{{contribuyenteEspecial}}</span>
+                        <span id="obligadoContabilidad">{{obligadoContabilidad}}</span>
                     </td>
                 </tr>
 
                 <tr>
                     <td colspan="2" align="center">
-                        <br>&nbsp;&nbsp;<span class="Descripcion1">{{obligadoContabilidad}}</span>
+                        <!-- <br>&nbsp;&nbsp;<span class="Descripcion1"></span> -->
+                        <br>&nbsp;&nbsp;<span class="Descripcion1">{{contribuyenteRimpe}}</span>
                     </td>
                 </tr>
             </table>
@@ -214,6 +215,7 @@
             <th>Cód. Item</th>
             <th>Cantidad</th>
             <th>Descripcion</th>
+            <th>Det. Adicional</th>
             <th>Precio Unitario</th>
             <th>Descuento</th>
             <th width="115">Total Item</th>
@@ -225,6 +227,7 @@
             <td align="center">{{this.item}}</td>
             <td align="center">{{this.quantity}}</td>
             <td align="left">{{this.description}}</td>
+            <td align="left">{{this.detinfoadicional}}</td>
             <td align="right">{{this.price}}</td>
             <td align="right">{{this.desc}}</td>
             <td align="right">{{this.totalitem}}</td>

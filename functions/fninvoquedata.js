@@ -156,12 +156,12 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
             const existeagenteretencion         =   !!infoTributaria.agenteRetencion;
             const agenteRetencion               =   existeagenteretencion ? infoTributaria.agenteRetencion[0]: '';//Valor Neto
             const existecontribuyenterimpe      =   !!infoTributaria.contribuyenteRimpe;
-            const contribuyenteRimpe            =   existecontribuyenterimpe ? infoTributaria.contribuyenteRimpe[0] : 'NO ES CONTRIBUYENTE RIMPE';
+            const contribuyenteRimpe            =   existecontribuyenterimpe ? infoTributaria.contribuyenteRimpe[0] : '';
             /**Info Factura */
             const infoFactura                   =   factura.infoFactura[0];//valor neto
             const fechaEmision                  =   infoFactura.fechaEmision[0];//valor neto
             const existedirestablecimiento      =   !!infoFactura.dirEstablecimiento;
-            const dirEstablecimiento            =   existedirestablecimiento ? infoFactura.dirEstablecimiento[0] : 'SIN DIRECCION EN EL XML';//valor neto
+            const dirEstablecimiento            =   existedirestablecimiento ? infoFactura.dirEstablecimiento[0] : dirMatriz;//valor neto
             const existecontribuyenteesp        =   !!infoFactura.contribuyenteEspecial;
             const contribuyenteEspecial         =   existecontribuyenteesp   ? infoFactura.contribuyenteEspecial[0]: 'NO ES CONTRIBUYENTE ESPECIAL';//valor neto
             const existeobligadocontabilidad    =   !!infoFactura.obligadoContabilidad;
@@ -279,6 +279,21 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                 const precioTotalSinImpuesto    =   parseFloat(detalle.precioTotalSinImpuesto[0]);
                 const impuestos                 =   detalle.impuestos[0];
                 let   valorimpuesto             =   0.00;
+               /*  let   nombrecampo               =   '';
+                let   valorcampo                =   ''; */
+                const existedetallesadicionales =   !!detalle.detallesAdicionales;
+                let   detinfoadicional          =   existedetallesadicionales ? '':'S/I';
+                if(existedetallesadicionales){
+                    const detallesadicionales   =   detalle.detallesAdicionales[0];
+                    for(const detalleadicional of detallesadicionales.detAdicional){
+                        /* nombrecampo             =   detalleadicional.$.nombre;
+                        valorcampo              =   detalleadicional.$.valor;
+                        const cadena            =   nombrecampo+' => '+valorcampo; */
+                        detinfoadicional        +=  `${detalleadicional.$.nombre} => ${detalleadicional.$.valor}`
+                        
+                    }
+                    
+                }
                 for(const impuesto of impuestos.impuesto){
                     /* const   codigodetimp            =   impuesto.codigo[0];
                     const   codigoPorcentajedetimp  =   impuesto.codigoPorcentaje[0];
@@ -288,14 +303,15 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                 }
                 
                 const detallesd                     =   { 
-                                                            item:           codigoPrincipal         ,
-                                                            description:    descripcion             , 
-                                                            quantity:       cantidad                , 
-                                                            price:          precioUnitario          ,
-                                                            desc:           descuento               ,
-                                                            preciosinimp:   precioTotalSinImpuesto  ,
-                                                            valorimp:       valorimpuesto           ,
-                                                            totalitem:      precioTotalSinImpuesto //+  valorimpuesto
+                                                            item:               codigoPrincipal         ,
+                                                            description:        descripcion             , 
+                                                            quantity:           cantidad                , 
+                                                            price:              precioUnitario          ,
+                                                            desc:               descuento               ,
+                                                            preciosinimp:       precioTotalSinImpuesto  ,
+                                                            valorimp:           valorimpuesto           ,
+                                                            totalitem:          precioTotalSinImpuesto  ,
+                                                            detinfoadicional :  detinfoadicional
                                                         };
                 
                 detallefactura.push(detallesd);
@@ -318,6 +334,7 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                     console.log('NOmbre Campo',nombrecampo); */
                 }
             }
+            
             /** */
             const nombrearchivo                 =   ruc+'-'+estab+'-'+ptoEmi+'-'+secuencial+'.pdf';
             /** 
@@ -372,7 +389,7 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                 formaPago                       ,
                 total                           ,
                 plazo                           ,    
-                unidadTiempo                    ,    
+                unidadTiempo                    ,   
                 detalles:detallefactura         ,
                 datosinfoadicional              
                                
