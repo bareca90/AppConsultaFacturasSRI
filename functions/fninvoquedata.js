@@ -172,7 +172,7 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
             const razonSocialComprador          =   infoFactura.razonSocialComprador[0];//valor neto
             const identificacionComprador       =   infoFactura.identificacionComprador[0];//valor neto
             const existedircomprador            =   !!infoFactura.direccionComprador;
-            const direccionComprador            =   existedircomprador ? infoFactura.direccionComprador[0]:'NO SE VISUALIZA DIRECCIÓN EN EL XML';//valor neto
+            const direccionComprador            =   existedircomprador ? infoFactura.direccionComprador[0]:'N/A';//valor neto
             const totalSinImpuestos             =   parseFloat(infoFactura.totalSinImpuestos[0]); //valor neto
             const existetotdescuento            =   !!infoFactura.totalDescuento;
             const totalDescuento                =   existetotdescuento ?  parseFloat(infoFactura.totalDescuento[0]):0; //valor neto
