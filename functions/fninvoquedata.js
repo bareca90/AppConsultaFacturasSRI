@@ -155,6 +155,7 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
             const dirMatriz                     =   infoTributaria.dirMatriz[0];//Valor Neto
             const existeagenteretencion         =   !!infoTributaria.agenteRetencion;
             const agenteRetencion               =   existeagenteretencion ? infoTributaria.agenteRetencion[0]: '';//Valor Neto
+            const cadenaAgenteRetencion         =   agenteRetencion>0 ? `AGENTE RETENCIÓN RESOLUCIÓN No. ${agenteRetencion}`: '';
             const existecontribuyenterimpe      =   !!infoTributaria.contribuyenteRimpe;
             const contribuyenteRimpe            =   existecontribuyenterimpe ? infoTributaria.contribuyenteRimpe[0] : '';
             /**Info Factura */
@@ -372,6 +373,7 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                 secuencial                      ,
                 dirMatriz                       ,
                 agenteRetencion                 ,
+                cadenaAgenteRetencion           ,
                 contribuyenteRimpe              ,
                 /** se Recorrera el Arreglo Total Con Impuesto */
                 codigo                          ,
