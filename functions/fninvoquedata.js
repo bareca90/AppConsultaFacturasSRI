@@ -292,6 +292,7 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                         const cadena            =   nombrecampo+' => '+valorcampo; */
                         detinfoadicional        +=  `${detalleadicional.$.nombre} => ${detalleadicional.$.valor}`
                         
+                        
                     }
                     
                 }
@@ -324,15 +325,27 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
             let     nombrecampo                 =   '';
             if (existeInfoAdicional){
                 for(const adicional of infoAdicional.campoAdicional){
-                    informacioncampo            =   adicional._
-                    nombrecampo                 =   adicional.$.nombre
+                    informacioncampo            =   adicional._;
+                    nombrecampo                 =   adicional.$.nombre;
+                    let cadena_1                =   '';
+                    let cadena_2                =   '';
+                    let cadena_3                =   '';
+                    if(!informacioncampo.includes(" ")){
+                        if(informacioncampo.length > 58){
+                            cadena_1            =   informacioncampo.substring(0, 58);
+                            cadena_2            =   informacioncampo.substring(59, 117);
+                            cadena_3            =   informacioncampo.substring(118);
+                            informacioncampo    =   cadena_1+' '+cadena_2+' '+cadena_3;
+                        }
+                        
+                    }
+                   
                     datosinfoadicional.push({
                                                 datos : nombrecampo+' : '+ informacioncampo , 
                                                 campo : nombrecampo, 
                                                 valorcampo : informacioncampo
                                             });
-                    /* console.log('Info Adicional',informacioncampo);
-                    console.log('NOmbre Campo',nombrecampo); */
+                    
                 }
             }
             

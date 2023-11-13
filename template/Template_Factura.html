@@ -139,13 +139,10 @@
                         <span id="obligadoContabilidad">{{obligadoContabilidad}}</span>
                     </td>
                 </tr>
+                
                 <tr>
                     <td colspan="2" align="center">
                         <br>&nbsp;&nbsp;<span class="Descripcion1">{{cadenaAgenteRetencion}}</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
                         <br>&nbsp;&nbsp;<span class="Descripcion1">{{contribuyenteRimpe}}</span>
                     </td>
                 </tr>
@@ -212,7 +209,7 @@
 </table>
 
 
-<table align='center' border='1' width='1159' cellspacing='0' class="BordesTablasDetalle">
+<table align='left' border='1' width='1159' cellspacing='0' class="BordesTablasDetalle">
     <thead >
         <tr>
             <th>Cód. Item</th>
@@ -250,11 +247,11 @@
 
 
 
-<table id="ColSub" width="1160" border="0">
+<table id="ColSub" width="1160px" border="0">
     <tr>
-        <td style="width: 100%;">
+        <td style="width: 780px">
             <!-- <table id="tableformapago"></table> -->
-            <table align='left' border='0' width='95%' cellspacing='12' class="BordesTablas">
+            <table align='left' border='0' width='750px' cellspacing='12' class="BordesTablas">
                 <thead>
                     <tr>
                         <th>Forma de Pago</th>
@@ -366,8 +363,8 @@
     </tr>
 
     <tr>
-        <td>
-            <table align='left' border='0' width='95%' cellspacing='3' class="BordesTablas">	
+        <td style="width: 750px;">
+            <table align='left' border='0' width='750px' cellspacing='3' class="BordesTablas">	
                 <tr>
                     <th colspan="2">Informacion Adicional</th>
                 </tr>
@@ -375,7 +372,7 @@
                     {{#each datosinfoadicional}}
                     <tr>
                         <td width="195" height="27" class="Descripcion1"> {{this.campo}}</td>
-                        <td>{{this.valorcampo}}</td>
+                        <td  style="width: 500px; word-wrap: break-word; white-space: pre-wrap;">{{this.valorcampo}}</td>
                     </tr>
                     {{/each}}
                 </tbody>
