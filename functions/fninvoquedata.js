@@ -331,19 +331,29 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                     let cadena_1                =   '';
                     let cadena_2                =   '';
                     let cadena_3                =   '';
-                    if(!informacioncampo.includes(" ")){
-                        cadena_1                =   informacioncampo.length > 58 ? informacioncampo.substring(0, 58):'';
-                        cadena_2                =   informacioncampo.length > 58 &&  informacioncampo.length < 118 ? informacioncampo.substring(59, 117):'';
-                        cadena_2                =   informacioncampo.length > 117  ? informacioncampo.substring(118):'';
-                        informacioncampo        =   cadena_1+' '+cadena_2+' '+cadena_3;
-                        /* if(informacioncampo.length > 58){
-                            cadena_1            =   informacioncampo.substring(0, 58);
-                            cadena_2            =   informacioncampo.substring(59, 117);
-                            cadena_3            =   informacioncampo.substring(118);
-                            informacioncampo    =   cadena_1+' '+cadena_2+' '+cadena_3;
-                        } */
-                        
+                    console.log(informacioncampo);
+                    if (typeof informacioncampo === "string" && informacioncampo.length > 58) {
+                        if(!informacioncampo.includes(" ") ){
+                            if(informacioncampo.length > 117){
+                                cadena_1            =   informacioncampo.substring(0, 58);
+                                cadena_2            =   informacioncampo.substring(59, 117);
+                                cadena_3            =   informacioncampo.substring(118);
+                            }else{
+                                if(informacioncampo.length > 59){
+                                    const cantcarac =   informacioncampo.length;
+                                    cadena_1        =   informacioncampo.substring(0, 58);
+                                    cadena_2        =   informacioncampo.substring(59, cantcarac);
+    
+                                }else{
+                                    const cant      =   informacioncampo.length;
+                                    cadena_1        =   informacioncampo.substring(0, cant);
+                                }
+                            }
+    
+                            informacioncampo        =   cadena_1+' '+cadena_2+' '+cadena_3
+                        }
                     }
+                    
                    
                     datosinfoadicional.push({
                                                 datos : nombrecampo+' : '+ informacioncampo , 
