@@ -319,6 +319,7 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                 detallefactura.push(detallesd);
                 
             }
+            
             const   existeInfoAdicional         =   !!factura.infoAdicional; //Verifico si existe ese nodo
             const   infoAdicional               =   existeInfoAdicional ? factura.infoAdicional[0]:'' ;//Arreglo
             let     informacioncampo            =   '';
@@ -331,12 +332,16 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                     let cadena_2                =   '';
                     let cadena_3                =   '';
                     if(!informacioncampo.includes(" ")){
-                        if(informacioncampo.length > 58){
+                        cadena_1                =   informacioncampo.length > 58 ? informacioncampo.substring(0, 58):'';
+                        cadena_2                =   informacioncampo.length > 58 &&  informacioncampo.length < 118 ? informacioncampo.substring(59, 117):'';
+                        cadena_2                =   informacioncampo.length > 117  ? informacioncampo.substring(118):'';
+                        informacioncampo        =   cadena_1+' '+cadena_2+' '+cadena_3;
+                        /* if(informacioncampo.length > 58){
                             cadena_1            =   informacioncampo.substring(0, 58);
                             cadena_2            =   informacioncampo.substring(59, 117);
                             cadena_3            =   informacioncampo.substring(118);
                             informacioncampo    =   cadena_1+' '+cadena_2+' '+cadena_3;
-                        }
+                        } */
                         
                     }
                    
