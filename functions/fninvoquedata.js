@@ -202,41 +202,45 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                 descuentoAdicional              =   existedescuento ? totalimpuesto.descuentoAdicional[0] : 0;       
                 const existetarifa              =   !!totalimpuesto.tarifa;
                 tarifa                          =   existetarifa ? totalimpuesto.tarifa[0]: codigoPorcentaje === '2' ? '12' : '0';       
-                valor                           =   parseFloat(totalimpuesto.valor[0]);    
+                const iva                       =   parseFloat(totalimpuesto.valor[0]);    
                 switch (codigoPorcentaje) {
                      //Iva 0%
                     case '0':
-                        baseImponible12         =   0.00
+                        /* baseImponible12         =   0.00 */
                         baseImponible0          =   parseFloat(totalimpuesto.baseImponible[0]);  
-                        noobjetoiva             =   0.00;
-                        excentoiva              =   0.00;
+                        /* noobjetoiva             =   0.00;
+                        excentoiva              =   0.00; */
+                        
                         break
                     //Iva 12%    
                     case '2':
                         baseImponible12         =   parseFloat(totalimpuesto.baseImponible[0]);      
-                        baseImponible0          =   0.00;
+                        valor                   =   iva;
+                        /* baseImponible0          =   0.00;
                         noobjetoiva             =   0.00;
-                        excentoiva              =   0.00;
+                        excentoiva              =   0.00; */
+                        
                         break
                     //Iva 14%
-                    case '3':
-                        baseImponible12         =   0.00;      
-                        baseImponible0          =   0.00;
+                    case '3': //Modificar si vuelve el 14
+                        baseImponible12         =   parseFloat(totalimpuesto.baseImponible[0]);    
+                        valor                   =   iva;
+                        /* baseImponible0          =   0.00;
                         noobjetoiva             =   0.00;
-                        excentoiva              =   0.00;
+                        excentoiva              =   0.00; */
                         break
                      //No Objeto de Iva
-                     case '3':
-                        baseImponible12         =   0.00;      
-                        baseImponible0          =   0.00;
+                     case '6':
+                        /* baseImponible12         =   0.00;      
+                        baseImponible0          =   0.00; */
                         noobjetoiva             =   parseFloat(totalimpuesto.baseImponible[0]);  
-                        excentoiva              =   0.00;
+                        /* excentoiva              =   0.00; */
                         break
                      //No Objeto de Iva
-                     case '3':
-                        baseImponible12         =   0.00;      
+                     case '7':
+                        /* baseImponible12         =   0.00;      
                         baseImponible0          =   0.00;
-                        noobjetoiva             =   0.00;
+                        noobjetoiva             =   0.00; */
                         excentoiva              =   parseFloat(totalimpuesto.baseImponible[0]); 
                         break
                     /* default:
@@ -245,6 +249,8 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                 
                 
             }
+            
+
             /** se Recorrera el Arreglo Pagos*/
             const existepagos                   =   !!infoFactura.pagos; //Verifico si existe ese nodo
             const pagos                         =   existepagos ? infoFactura.pagos[0] : '' ; //Arreglo
@@ -331,7 +337,6 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                     let cadena_1                =   '';
                     let cadena_2                =   '';
                     let cadena_3                =   '';
-                    console.log(informacioncampo);
                     if (typeof informacioncampo === "string" && informacioncampo.length > 58) {
                         if(!informacioncampo.includes(" ") ){
                             if(informacioncampo.length > 117){
