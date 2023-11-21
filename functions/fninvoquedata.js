@@ -338,7 +338,8 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                     let cadena_2                =   '';
                     let cadena_3                =   '';
                     if (typeof informacioncampo === "string" && informacioncampo.length > 58) {
-                        if(!informacioncampo.includes(" ") ){
+                        const espacios = informacioncampo.trim().split(' ').length;
+                        if((!informacioncampo.includes(" ")) || (espacios < 3 && informacioncampo.length > 117) ){
                             if(informacioncampo.length > 117){
                                 cadena_1            =   informacioncampo.substring(0, 58);
                                 cadena_2            =   informacioncampo.substring(59, 117);
@@ -357,6 +358,7 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
     
                             informacioncampo        =   cadena_1+' '+cadena_2+' '+cadena_3
                         }
+                        
                     }
                     
                    
