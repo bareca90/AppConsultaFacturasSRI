@@ -31,9 +31,6 @@ const Handlebars        =   require('handlebars');
 *   Declaración de variables Globales
 */
 const url               =   'https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl';
-//const ruc               =   '1206702175001'; // reemplazar con el RUC correspondiente
-//const clave             =   'BARECA0608'; // reemplazar con la clave de acceso correspondiente
-
 // Cargar la plantilla HTML
 const templatePath      =   path.join(__dirname, '..','template', 'Template_Factura.html');
 const source            =   fs.readFileSync(templatePath, 'utf8');
@@ -50,7 +47,9 @@ const  readjsonbd       =   async(ruc,password,pathdestino,datosjson)    =>  {
     *   Leo los datos que son enviados en el json para desestructurarlo
     */
     for(const claveacceso of datosjson){
-        /**Por cada clav de acceso se lee,consulta y obtiene el xml */
+        /*
+        *Por cada clav de acceso se lee,consulta y obtiene el xml 
+        */
         // Crear el objeto de solicitud para el método 'autorizacionComprobante'
         const requestArgs = {
             claveAccesoComprobante: claveacceso.claveAcceso,
@@ -124,15 +123,15 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
         let datosfactura        =   [];
         let detallefactura      =   [];    
         let datosinfoadicional  =   [];
-        /**
+        /*
          * Declaracion Variables Globales
          */
         const xml  =    datoxml.xml;
-        /** 
+        /* 
          * Se Valida si el documento es factura
         */
         if (xml.factura){
-            /**
+            /*
             * Recorrer el XML completo y almacenar los valores en variables
             */
 
@@ -183,7 +182,9 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
             const existemoneda                  =   !!infoFactura.moneda;
             const moneda                        =   existemoneda ? infoFactura.moneda[0]: 'DOLAR'; //Valor Neto
             
-            /** se Recorrera el Arreglo Total Con Impuesto */
+            /*
+            * se Recorrera el Arreglo Total Con Impuesto 
+            */
             let codigo                          =   0;
             let codigoPorcentaje                =  '0';
             let descuentoAdicional              =   0.00;
@@ -251,7 +252,9 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
             }
             
 
-            /** se Recorrera el Arreglo Pagos*/
+            /*
+            * se Recorrera el Arreglo Pagos
+            */
             const existepagos                   =   !!infoFactura.pagos; //Verifico si existe ese nodo
             const pagos                         =   existepagos ? infoFactura.pagos[0] : '' ; //Arreglo
             let formaPago                       =   '';
@@ -273,7 +276,9 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                 plazo                           =   0;    
                 unidadTiempo                    =   'DIAS';    
             }
-            /** Se Recorreo el Arreglo de Detalles  */
+            /*
+            * Se Recorreo el Arreglo de Detalles  
+            */
             const detalles                      =   factura.detalles[0]; //Arreglo
             for(const detalle of detalles.detalle){
                 const existecodprincipal        =   !!detalle.codigoPrincipal;
@@ -334,13 +339,23 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                 for(const adicional of infoAdicional.campoAdicional){
                     informacioncampo            =   adicional._;
                     nombrecampo                 =   adicional.$.nombre;
-                    let cadena_1                =   '';
-                    let cadena_2                =   '';
-                    let cadena_3                =   '';
+                    let cadena_final            =   '';
                     if (typeof informacioncampo === "string" && informacioncampo.length > 58) {
                         const espacios = informacioncampo.trim().split(' ').length;
                         if((!informacioncampo.includes(" ")) || (espacios < 3 && informacioncampo.length > 117) ){
-                            if(informacioncampo.length > 117){
+                            let numfilas        =   Math.trunc(informacioncampo.length / 58);
+                            let inicio_subs     =   0;
+                            let fin_subs        =   58;
+                            for(let a=0; a<numfilas;a++){
+                                cadena_final    +=  informacioncampo.substring(inicio_subs, fin_subs)+' ';
+                                inicio_subs     =   fin_subs+1;
+                                fin_subs        +=  58;  
+                                if(a+1 == numfilas){
+                                    fin_subs    =  informacioncampo.length;
+                                }
+                                
+                            }
+                            /* if(informacioncampo.length > 117){
                                 cadena_1            =   informacioncampo.substring(0, 58);
                                 cadena_2            =   informacioncampo.substring(59, 117);
                                 cadena_3            =   informacioncampo.substring(118);
@@ -356,7 +371,8 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                                 }
                             }
     
-                            informacioncampo        =   cadena_1+' '+cadena_2+' '+cadena_3
+                            informacioncampo        =   cadena_1+' '+cadena_2+' '+cadena_3 */
+                            informacioncampo        =   cadena_final;
                         }
                         
                     }
@@ -373,7 +389,7 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
             
             /** */
             const nombrearchivo                 =   ruc+'-'+estab+'-'+ptoEmi+'-'+secuencial+'.pdf';
-            /** 
+            /*
              * Almacenar los datos de la factura como : razon Social, total , etc
             */
             let ice     =   0.00;
