@@ -342,8 +342,11 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                     let cadena_final            =   '';
                     if (typeof informacioncampo === "string" && informacioncampo.length > 58) {
                         const espacios = informacioncampo.trim().split(' ').length;
-                        if((!informacioncampo.includes(" ")) || (espacios < 3 && informacioncampo.length > 117) ){
-                            let numfilas        =   Math.trunc(informacioncampo.length / 58);
+                        if( (!informacioncampo.includes(" ")) 
+                            || (espacios < 3 && informacioncampo.length > 58) 
+                            || (nombrecampo.includes("Direc")   && informacioncampo.length > 58) 
+                            || (nombrecampo.includes("mail")    && informacioncampo.length > 58) )
+                        {   let numfilas        =   Math.trunc(informacioncampo.length / 58);
                             let inicio_subs     =   0;
                             let fin_subs        =   58;
                             for(let a=0; a<numfilas;a++){
@@ -355,24 +358,8 @@ const convertxmltopdf = async(datosxml,rutadestino)=>{
                                 }
                                 
                             }
-                            /* if(informacioncampo.length > 117){
-                                cadena_1            =   informacioncampo.substring(0, 58);
-                                cadena_2            =   informacioncampo.substring(59, 117);
-                                cadena_3            =   informacioncampo.substring(118);
-                            }else{
-                                if(informacioncampo.length > 59){
-                                    const cantcarac =   informacioncampo.length;
-                                    cadena_1        =   informacioncampo.substring(0, 58);
-                                    cadena_2        =   informacioncampo.substring(59, cantcarac);
-    
-                                }else{
-                                    const cant      =   informacioncampo.length;
-                                    cadena_1        =   informacioncampo.substring(0, cant);
-                                }
-                            }
-    
-                            informacioncampo        =   cadena_1+' '+cadena_2+' '+cadena_3 */
-                            informacioncampo        =   cadena_final;
+                            informacioncampo        =   cadena_final.trim();
+                            
                         }
                         
                     }
